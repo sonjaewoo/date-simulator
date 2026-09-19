@@ -1,0 +1,167 @@
+{
+  "unit": "ns",
+  "precision": "fp16",
+  "burst": 128,
+  
+  "mode_change_delay" : {
+    "PIM_to_DRAM" : 70,
+    "DRAM_to_PIM" : 50
+  },  
+
+  "channel_scaling": {
+    "default": { "parallel_fraction": 0.80, "efficiency": 0.50, "saturation_channels": 4 },
+    "linear":  { "parallel_fraction": 0.80, "efficiency": 0.50, "saturation_channels": 4 },
+    "mlp1":    { "parallel_fraction": 0.80, "efficiency": 0.50, "saturation_channels": 4 },
+    "mlp2":    { "parallel_fraction": 0.80, "efficiency": 0.50, "saturation_channels": 4 },
+    "mlp3":    { "parallel_fraction": 0.80, "efficiency": 0.50, "saturation_channels": 4 },
+    "qk_t":    { "parallel_fraction": 0.65, "efficiency": 0.70, "saturation_channels": 4 },
+    "sv":      { "parallel_fraction": 0.70, "efficiency": 0.70, "saturation_channels": 4 },
+    "rope":    { "parallel_fraction": 0.40, "efficiency": 0.60, "saturation_channels": 2 },
+    "mul":     { "parallel_fraction": 0.40, "efficiency": 0.60, "saturation_channels": 2 }
+  },
+
+  "operations": {
+    "linear": [
+      { "output_tile": 4 },
+      { "name": "mode_change1", "latency": 29, "count": 1 },
+      { "name": "bank_to_grf", "latency": 29, "count": 144 },
+      { "name": "mac", "latency": 29, "count": 144 },
+      { "name": "grf_to_bank", "latency": 29, "count": 1 },
+      { "name": "mode_change2", "latency": 29, "count": 1 }
+    ],
+    "eagle_qkv": [
+      { "output_tile": 4 },
+      { "name": "mode_change1", "latency": 29, "count": 1 },
+      { "name": "bank_to_grf", "latency": 29, "count": 288 },
+      { "name": "mac", "latency": 29, "count": 288 },
+      { "name": "grf_to_bank", "latency": 29, "count": 1 },
+      { "name": "mode_change2", "latency": 29, "count": 1 }
+    ],
+    "eagle_fc": [
+      { "output_tile": 4 },
+      { "name": "mode_change1", "latency": 29, "count": 1 },
+      { "name": "bank_to_grf", "latency": 29, "count": 432 },
+      { "name": "mac", "latency": 29, "count": 432 },
+      { "name": "grf_to_bank", "latency": 29, "count": 1 },
+      { "name": "mode_change2", "latency": 29, "count": 1 }
+    ],
+    "mlp1": [
+      { "output_tile": 144 },
+      { "name": "mode_change1", "latency": 29, "count": 1 },
+      { "name": "bank_to_grf", "latency": 29, "count": 144 },
+      { "name": "mac", "latency": 29, "count": 144 },
+      { "name": "grf_to_bank", "latency": 29, "count": 1 },
+      { "name": "mode_change2", "latency": 29, "count": 1 }
+    ],
+    "mlp2": [
+      { "output_tile": 36 },
+      { "name": "mode_change1", "latency": 29, "count": 1 },
+      { "name": "bank_to_grf", "latency": 29, "count": 576 },
+      { "name": "mac", "latency": 29, "count": 576 },
+      { "name": "grf_to_bank", "latency": 29, "count": 1 },
+      { "name": "mode_change2", "latency": 29, "count": 1 }
+    ],
+    "mlp3": [
+      { "output_tile": 36 },
+      { "name": "mode_change1", "latency": 29, "count": 1 },
+      { "name": "bank_to_grf", "latency": 29, "count": 128 },
+      { "name": "mac", "latency": 29, "count": 128 },
+      { "name": "grf_to_bank", "latency": 29, "count": 1 },
+      { "name": "mode_change2", "latency": 29, "count": 1 }
+    ],    
+    "qk_t": [
+      { "output_tile": 3 },
+      { "name": "mode_change1", "latency": 31, "count": 1 },
+      { "name": "bank_to_grf", "latency": 31, "count": 16 },
+      { "name": "mac", "latency": 31, "count": 16 },
+      { "name": "grf_to_bank", "latency": 31, "count": 1 },
+      { "name": "mode_change2", "latency": 31, "count": 1 }
+    ],
+    "sv": [
+      { "output_tile": 4 },
+      { "name": "mode_change1", "latency": 33, "count": 1 },
+      { "name": "bank_to_grf", "latency": 33, "count": 16 },
+      { "name": "mac", "latency": 33, "count": 16 },
+      { "name": "grf_to_bank", "latency": 33, "count": 1 },
+      { "name": "mode_change2", "latency": 33, "count": 1 }
+    ],
+    "rope": [
+      { "output_tile": 6 },
+      { "name": "bank_to_grf1", "latency": 60, "count": 2 },
+      { "name": "bank_to_grf2", "latency": 60, "count": 2 },
+      { "name": "mul", "latency": 60, "count": 2 },
+      { "name": "grf_to_bank", "latency": 60, "count": 2 }
+    ],
+    "mul": [
+      { "output_tile": 6 },
+      { "name": "bank_to_grf1", "latency": 11, "count": 8 },
+      { "name": "mul", "latency": 11, "count": 8 },
+      { "name": "grf_to_bank", "latency": 11, "count": 8 }
+    ]
+  },
+  "layers": {
+    "D_Q0": "linear",
+    "D_Q1": "linear",
+    "D_Q2": "linear",
+    "D_Q3": "linear",
+    "D_Q4": "linear",
+    "D_Q5": "linear",
+    "D_Q6": "linear",
+    "D_Q7": "linear",
+    "D_K0": "linear",
+    "D_K2": "linear",
+    "D_K4": "linear",
+    "D_K6": "linear",
+    "D_V0": "linear",
+    "D_V2": "linear",
+    "D_V4": "linear",
+    "D_V6": "linear",
+    "D_S_V0": "sv",
+    "D_S_V1": "sv",
+    "D_S_V2": "sv",
+    "D_S_V3": "sv",
+    "D_S_V4": "sv",
+    "D_S_V5": "sv",
+    "D_S_V6": "sv",
+    "D_S_V7": "sv",
+    "D_Q0_RoPE": "rope",
+    "D_Q1_RoPE": "rope",
+    "D_Q2_RoPE": "rope",
+    "D_Q3_RoPE": "rope",
+    "D_Q4_RoPE": "rope",
+    "D_Q5_RoPE": "rope",
+    "D_Q6_RoPE": "rope",
+    "D_Q7_RoPE": "rope",
+    "D_K0_RoPE": "rope",
+    "D_K2_RoPE": "rope",
+    "D_K4_RoPE": "rope",
+    "D_K6_RoPE": "rope",
+    "D_up_proj": "mlp1",
+    "D_gate_proj": "mlp1",
+    "D_down_proj": "mlp2",
+    "D_MHA_out": "mlp3",
+    "D_QK_T0": "qk_t",
+    "D_QK_T1": "qk_t",
+    "D_QK_T2": "qk_t",
+    "D_QK_T3": "qk_t",
+    "D_QK_T4": "qk_t",
+    "D_QK_T5": "qk_t",
+    "D_QK_T6": "qk_t",
+    "D_QK_T7": "qk_t",
+    "fc": "eagle_fc",
+    "eagle_q_proj": "eagle_qkv",
+    "eagle_k_proj": "eagle_qkv",
+    "eagle_v_proj": "eagle_qkv",
+    "q_proj": "linear",
+    "k_proj": "linear",
+    "v_proj": "linear",
+    "sv": "sv",
+    "rope": "rope",
+    "up_proj": "mlp1",
+    "gate_proj": "mlp1",
+    "down_proj": "mlp2",
+    "o_proj": "mlp3",
+    "qkt": "qk_t",
+    "Mul1": "mul"
+  }
+}

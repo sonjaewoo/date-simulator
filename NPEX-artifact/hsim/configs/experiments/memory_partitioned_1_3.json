@@ -1,0 +1,5 @@
+{
+  "request_size": 64,
+  "dram": {"backend": "dramsim3", "memory_type": "LPDDR5", "chip_config": "8Gb_x16", "timing_preset": "6400", "num_channels": 1, "capacity": 16, "clock_freq": 3.2},
+  "pim":  {"backend": "dramsim3", "memory_type": "LPDDR5", "chip_config": "8Gb_x16", "timing_preset": "6400", "num_channels": 3, "capacity": 16, "clock_freq": 3.2}
+}

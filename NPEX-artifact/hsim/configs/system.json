@@ -1,0 +1,45 @@
+{
+  "architecture": {
+    "memory_structure": "unified"
+  },
+  "frequency": {
+    "unit": "GHz",
+    "host": 0.5
+  },
+  "synthetic_npu": {
+    "enabled": true,
+    "max_inflight_requests": 256,
+    "fast_layer_mode": true,
+    "fast_layer_granularity": "layer",
+    "fast_memory_backend": "dramsim3_calibrated",
+    "fast_memory_channel_model": "linear_logical",
+    "fast_memory_channel_efficiency": 0.5,
+    "dram_macro_calibration_requests": 4096,
+    "fast_memory_bandwidth_GBps": 12.8,
+    "fast_memory_fixed_latency_ns": 100,
+    "macs_per_cycle": 1024,
+    "compute_frequency_GHz": 0.5,
+    "model_profile": "model/qwen3_8b"
+  },
+  "synthetic_pim": {
+    "enabled": true,
+    "fast_layer_mode": true,
+    "fast_layer_granularity": "layer",
+    "model_profile": "model/qwen3_0_6b"
+  },
+  "workload": {
+    "execution_mode": "speculative",
+    "model": "gemma2_2b",
+    "scenario_id": 1,
+    "input_sequence_length": 128
+  },
+  "speculative": {
+    "scenario_id": 1,
+    "control_trace_file": "traces/qwen_k2f6_human/ssd_control.jsonl",
+    "sample_index": -1,
+    "skip_warmup_iterations": 0,
+    "exclude_prefill": false,
+    "max_control_iterations": 0
+  },
+  "cycle_log_file": "log_pearl_vanilla.txt"
+}

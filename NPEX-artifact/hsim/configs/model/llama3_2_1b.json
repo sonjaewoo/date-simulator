@@ -1,0 +1,21 @@
+{
+  "name": "Llama-3.2-1B (FP16 weights)",
+  "decoder_layers": 16,
+  "output_write_bytes": 4096,
+  "kv_cache_bytes_per_token": 2048,
+  "attention_context_tile_tokens": 128,
+  "operations": [
+    {"name": "input_rmsnorm", "weight_read_bytes": 4096, "compute_share": 1, "macs_per_token": 2048},
+    {"name": "q_proj", "weight_read_bytes": 8388608, "compute_share": 1, "macs_per_token": 4194304},
+    {"name": "k_proj", "weight_read_bytes": 2097152, "compute_share": 1, "macs_per_token": 1048576},
+    {"name": "v_proj", "weight_read_bytes": 2097152, "compute_share": 1, "macs_per_token": 1048576},
+    {"name": "rope", "weight_read_bytes": 0, "compute_share": 1, "macs_per_token": 2048},
+    {"name": "qkt", "weight_read_bytes": 0, "compute_share": 1, "macs_per_kv_token": 2048},
+    {"name": "sv", "weight_read_bytes": 0, "compute_share": 1, "macs_per_kv_token": 2048},
+    {"name": "o_proj", "weight_read_bytes": 8388608, "compute_share": 1, "macs_per_token": 4194304},
+    {"name": "post_attention_rmsnorm", "weight_read_bytes": 4096, "compute_share": 1, "macs_per_token": 2048},
+    {"name": "gate_proj", "weight_read_bytes": 33554432, "compute_share": 1, "macs_per_token": 16777216},
+    {"name": "up_proj", "weight_read_bytes": 33554432, "compute_share": 1, "macs_per_token": 16777216},
+    {"name": "down_proj", "weight_read_bytes": 33554432, "compute_share": 1, "macs_per_token": 16777216}
+  ]
+}

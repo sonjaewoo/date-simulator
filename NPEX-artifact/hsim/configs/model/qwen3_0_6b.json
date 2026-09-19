@@ -1,0 +1,21 @@
+{
+  "name": "Qwen3-0.6B (FP16/BF16 weights)",
+  "decoder_layers": 28,
+  "output_write_bytes": 2048,
+  "kv_cache_bytes_per_token": 4096,
+  "attention_context_tile_tokens": 128,
+  "operations": [
+    {"name": "input_rmsnorm", "weight_read_bytes": 2048, "compute_share": 1, "macs_per_token": 1024},
+    {"name": "q_proj", "weight_read_bytes": 2097152, "compute_share": 1, "macs_per_token": 1048576},
+    {"name": "k_proj", "weight_read_bytes": 2097152, "compute_share": 1, "macs_per_token": 1048576},
+    {"name": "v_proj", "weight_read_bytes": 2097152, "compute_share": 1, "macs_per_token": 1048576},
+    {"name": "rope", "weight_read_bytes": 0, "compute_share": 1, "macs_per_token": 1024},
+    {"name": "qkt", "weight_read_bytes": 0, "compute_share": 1, "macs_per_kv_token": 1024},
+    {"name": "sv", "weight_read_bytes": 0, "compute_share": 1, "macs_per_kv_token": 1024},
+    {"name": "o_proj", "weight_read_bytes": 2097152, "compute_share": 1, "macs_per_token": 1048576},
+    {"name": "post_attention_rmsnorm", "weight_read_bytes": 2048, "compute_share": 1, "macs_per_token": 1024},
+    {"name": "gate_proj", "weight_read_bytes": 6291456, "compute_share": 1, "macs_per_token": 3145728},
+    {"name": "up_proj", "weight_read_bytes": 6291456, "compute_share": 1, "macs_per_token": 3145728},
+    {"name": "down_proj", "weight_read_bytes": 6291456, "compute_share": 1, "macs_per_token": 3145728}
+  ]
+}

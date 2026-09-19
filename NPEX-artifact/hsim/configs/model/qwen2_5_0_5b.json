@@ -1,0 +1,21 @@
+{
+  "name": "Qwen2.5-0.5B (FP16)",
+  "decoder_layers": 24,
+  "output_write_bytes": 1792,
+  "kv_cache_bytes_per_token": 512,
+  "attention_context_tile_tokens": 128,
+  "operations": [
+    {"name": "input_rmsnorm", "weight_read_bytes": 1792, "compute_share": 1},
+    {"name": "q_proj", "weight_read_bytes": 1605632, "compute_share": 1},
+    {"name": "k_proj", "weight_read_bytes": 229376, "compute_share": 1},
+    {"name": "v_proj", "weight_read_bytes": 229376, "compute_share": 1},
+    {"name": "rope", "weight_read_bytes": 0, "compute_share": 1},
+    {"name": "qkt", "weight_read_bytes": 0, "compute_share": 1},
+    {"name": "sv", "weight_read_bytes": 0, "compute_share": 1},
+    {"name": "o_proj", "weight_read_bytes": 1605632, "compute_share": 1},
+    {"name": "post_attention_rmsnorm", "weight_read_bytes": 1792, "compute_share": 1},
+    {"name": "gate_proj", "weight_read_bytes": 8716288, "compute_share": 1},
+    {"name": "up_proj", "weight_read_bytes": 8716288, "compute_share": 1},
+    {"name": "down_proj", "weight_read_bytes": 8716288, "compute_share": 1}
+  ]
+}

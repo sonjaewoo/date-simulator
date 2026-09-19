@@ -1,0 +1,7 @@
+/build/
+/results/
+*.log
+*.breakdown.json
+DRAMsim3/*stats.json
+DRAMsim3/*stats.txt
+DRAMsim3/*statsepoch.json
